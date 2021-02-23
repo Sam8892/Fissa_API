@@ -10,7 +10,7 @@ router.route('/')
 router.route('/:id')
       .put(advertisementController.updateAds)
       // .delete(userController.deleteUser)
-      // .get(userController.showUSer);      
+      .get(advertisementController.showAdvert);      
     
 
 

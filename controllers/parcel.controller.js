@@ -7,7 +7,7 @@ module.exports = {
         const parcels = await Parcel.find();
         parcels.forEach((el)=>{
             if(el.photo){
-                el.photo = "http://localhost:3000/images/"+el.image
+                el.photo = "http://localhost:3000/images/"+el.photo
             }
         })
         res.json(parcels)
@@ -27,7 +27,7 @@ module.exports = {
             bonus,
             description,
                 } = req.body;
-               
+               console.log(dimension + " _ " + description) 
                /* const userExist = await User.findOne({ 'email' : email });
                 if(userExist){
                     return res.status(400).json("Already registred email");
@@ -56,13 +56,14 @@ module.exports = {
 
         const parcel = await Parcel.findOne({ _id: id });
         if(!parcel){
-            return res.status(404).json("User Not Found")
+            return res.status(404).json("Parcel Not Found")
         }
 
         const {
             dimension,
             weight,            
             bonus,
+            parcelType,
             description,       
         } = req.body;
 
@@ -70,7 +71,8 @@ module.exports = {
         parcel.dimension = dimension;
         parcel.weight = weight;
         parcel.bonus= bonus;
-        parcel.description = description;
+        parcel.parcelType= parcelType;
+        parcel.description = description ;
        
 
         if(req.file){
@@ -88,4 +90,15 @@ module.exports = {
         res.json(parcel)
 
     },
+    showParcel: async (req,res)=>{
+        const { id } = req.params;
+        const parcel = await Parcel.findOne({ _id: id });
+        if(!parcel){
+            return res.status(404).json("Parcel not found");
+        }
+        if(parcel.photo){
+            parcel.photo = "http://localhost:3000/images/"+ parcel.photo;
+        }
+        res.json(parcel)
+    }
 }

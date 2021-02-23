@@ -3,12 +3,21 @@ const mongoose = require('mongoose');
 
 const advertisementSchema = mongoose.Schema(
     {
+      type: {
+        type: String,
+        enum: [
+            'transport',
+			      'travel',
+            'purchase',
+        ],
+        default: 'travel',
+    },
       departure: {
             
         type: String, 
     },
     destination: {
-      
+        
         type: String, 
       },
         departureDate: {

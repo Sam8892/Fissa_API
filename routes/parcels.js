@@ -25,6 +25,6 @@ router.route('/')
 router.route('/:id')
    .put(upload.single('photo'),parcelController.updateParcel)
   //  .delete(userController.deleteUser)
-  //  .get(userController.showUSer);
+    .get(parcelController.showParcel);
 
 module.exports = router;

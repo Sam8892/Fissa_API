@@ -52,10 +52,15 @@ const userSchema = mongoose.Schema({
     publishedAdverts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'advertisement'
+     }],
+    
+    myTransactions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'advertisement'
      }]
     },
-    // createAt updatedAt
 
+  
       {
        timestamps: true 
       }

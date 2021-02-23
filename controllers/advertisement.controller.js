@@ -9,6 +9,7 @@ module.exports = {
         
         
         const advert = new Advertisement({
+            type :req.body.type,
             departureDate: req.body.departureDate,
             arivalDate : req.body.arivalDate, 
             departure: req.body.departure ,
@@ -18,7 +19,7 @@ module.exports = {
             parcel: req.body.parcel
          
         });
-        console.log(req.body.parcel);
+       // console.log(req.body.parcel);
         await advert.save();
         const user = await User.findById({_id: advert.createdBy})
         user.publishedAdverts.push(advert);
@@ -26,15 +27,12 @@ module.exports = {
         res.json(advert)
        // res.redirect('/users');
     },
+    
     getAll: async (req,res) => {
         const advert = await Advertisement.find().populate('createdBy' , "lastName firstName image").populate('parcel');
-       /* users.forEach((el)=>{
-            if(el.image){
-                el.image = "http://localhost:3000/images/"+el.image
-            }
-        })*/
         res.json(advert)
     },
+
     updateAds: async (req, res)=>{
         const { id } = req.params;
 
@@ -51,12 +49,21 @@ module.exports = {
             advert.advetarivalDate = arivalDate, 
             advert.departure = departure ,
             advert.destination = destination ,
-         advert.descriptionBuying = descriptionBuying,
+            advert.descriptionBuying = descriptionBuying,
        
     
         await advert.save();
         res.json(advert)
 
 
+    },
+    showAdvert: async (req,res)=>{
+        const { id } = req.params;
+        const advert = await Advertisement.findOne({ _id: id }).populate('createdBy' , "lastName firstName image").populate('parcel');;
+        if(!advert){
+            return res.status(404).json("Adverr not found");
+        }
+        
+        res.json(advert)
     }
  }

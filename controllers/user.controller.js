@@ -1,4 +1,5 @@
 const { User } = require('../models/user.model');
+
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 
@@ -119,16 +120,19 @@ module.exports = {
                                 data
                             });
             
-                            console.log(user)
+                           // console.log(user)
                         })
                     }
                 })
        
     },
-    updateUser: async (req, res)=>{
-        const { id } = req.params;
+    updateUser : async (req, res) =>{
 
-        const user = await User.findOne({ _id: id });
+       
+       const { id } = req.params;
+
+        const user = await User.findByIdAndUpdate({ _id: id })
+
         if(!user){
             return res.status(404).json("User Not Found")
         }

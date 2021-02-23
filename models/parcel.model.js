@@ -2,18 +2,14 @@ const mongoose = require('mongoose');
 
 
 const parcelSchema = mongoose.Schema(
-    {
-      dimension: {
-        type: String,
-        enum: [
-            'small',
-			      'meduim',
-            'large',
-            'very large',
-       
-        ],
-        default: 'meduim',
-    },
+    {  
+      description: 
+      {
+         type: String,
+        // require:true
+
+       },  
+      
     weight: {
       
         type: Number, 
@@ -31,16 +27,23 @@ const parcelSchema = mongoose.Schema(
         ],
         default: 'other...',
       },
+      dimension: {
+        type: String,
+        enum: [
+            'small',
+			      'meduim',
+            'large',
+            'very large'
+       
+        ],
+        default: 'meduim',
+         },
         
             photo: {
             
               type: String, 
           },
-             description: 
-             {
-                type: String,
-             
-              },
+            
               bonus: {
       
                 type: Number, 

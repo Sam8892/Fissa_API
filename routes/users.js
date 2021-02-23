@@ -25,7 +25,7 @@ router.route('/')
     
 
 router.route('/:id')
-   .put(upload.single('avatar'),userController.updateUser)
+   .patch(upload.single('avatar'),userController.updateUser)
     .delete(userController.deleteUser)
     .get(userController.showUSer);
 
