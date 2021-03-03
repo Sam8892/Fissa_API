@@ -12,6 +12,7 @@ var transactionRouter= require('./routes/transactions');
 var app = express();
  
 const mongoose = require('mongoose');
+const uri = "mongodb+srv://kou:fisaa@cluster0.qczbh.mongodb.net/fisaa?retryWrites=true&w=majority";
 /*
 mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: true, useNewUrlParser: true })
   .then((res)=>{
@@ -21,9 +22,15 @@ mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: tru
     console.log("an error has occured", err);
   })
   */
- mongoose.connect("mongodb+srv://kou:fisaa@cluster0.qczbh.mongodb.net/fisaa?retryWrites=true&w=majority", {
-  useNewUrlParser: true
-  });
+ //atlas
+ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then((res)=>{
+    console.log("mongo Atlas connected")
+  }) 
+  .catch((err)=>{
+    console.log("an error has occured", err);
+  })
+  
 // view engine setup
  
 
