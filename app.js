@@ -23,13 +23,9 @@ mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: tru
   })
   */
  //atlas
- mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
-  .then((res)=>{
-    console.log("mongo Atlas connected")
-  }) 
-  .catch((err)=>{
-    console.log("an error has occured", err);
-  })
+ mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+ .then(() => console.log("Database Connected Successfully"))
+ .catch(err => console.log(err));
   
 // view engine setup
  
