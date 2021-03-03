@@ -9,10 +9,10 @@ var usersRouter = require('./routes/users');
 var advertisementRouter= require('./routes/advertisements');
 var parcelRouter= require('./routes/parcels');
 var transactionRouter= require('./routes/transactions');
-
 var app = express();
+ 
 const mongoose = require('mongoose');
-
+/*
 mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: true, useNewUrlParser: true })
   .then((res)=>{
     console.log("mongoDb connected")
@@ -20,10 +20,12 @@ mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: tru
   .catch((err)=>{
     console.log("an error has occured", err);
   })
-
+  */
+ mongoose.connect("mongodb+srv://kou:fisaa@cluster0.qczbh.mongodb.net/fisaa?retryWrites=true&w=majority", {
+  useNewUrlParser: true
+  });
 // view engine setup
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'twig');
+ 
 
 app.use(logger('dev'));
 app.use(express.json());
