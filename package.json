@@ -2,7 +2,7 @@
   "name": "restapi_fissa",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "\"test\" :\" echo \\Error: no test spicified\\\" && exit 1\"",
     "start": "nodemon app.js"
