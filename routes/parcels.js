@@ -20,6 +20,7 @@ const upload = multer({ storage });
 router.route('/')
     .get(parcelController.getAll)
     .post(upload.single('photo'), parcelController.create)
+    //hello
     
 
 router.route('/:id')
