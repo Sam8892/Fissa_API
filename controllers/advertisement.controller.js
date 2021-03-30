@@ -3,67 +3,89 @@
 const { User } = require('../models/user.model');
 const { Advertisement } = require('../models/advertisement.model');
 module.exports = {
-    
 
-    create: async (req,res , next)=>{
-        
-        
+
+    create: async (req, res, next) => {
+
+
         const advert = new Advertisement({
-            type :req.body.type,
+            type: req.body.type,
             departureDate: req.body.departureDate,
-            arivalDate : req.body.arivalDate, 
-            departure: req.body.departure ,
-            destination: req.body.destination ,
+            arivalDate: req.body.arivalDate,
+            departure: req.body.departure,
+            destination: req.body.destination,
             descriptionBuying: req.body.descriptionBuying,
             createdBy: req.body.createdBy,
             parcel: req.body.parcel
-         
+
         });
-       // console.log(req.body.parcel);
+        // console.log(req.body.parcel);
         await advert.save();
-        const user = await User.findById({_id: advert.createdBy})
+        const user = await User.findById({ _id: advert.createdBy })
         user.publishedAdverts.push(advert);
         await user.save();
         res.json(advert)
-       // res.redirect('/users');
+        // res.redirect('/users');
     },
-    
-    getAll: async (req,res) => {
-        const advert = await Advertisement.find().populate('createdBy' , "lastName firstName image").populate('parcel');
+
+    getAll: async (req, res) => {
+        const advert = await Advertisement.find().populate('createdBy', "lastName firstName image").populate('parcel');
         res.json(advert)
     },
 
-    updateAds: async (req, res)=>{
+    updateAds: async (req, res) => {
         const { id } = req.params;
 
- 
+
         const advert = await Advertisement.findOne({ _id: id });
-        if(!advert){
+        if (!advert) {
             return res.status(404).json(" Advertisement Not Found")
         }
-       
-         const { departureDate,arivalDate,departure ,destination,descriptionBuying } = req.body;
-  
-        
-            advert.departureDate = departureDate,
-            advert.advetarivalDate = arivalDate, 
-            advert.departure = departure ,
-            advert.destination = destination ,
+
+        const { departureDate, arivalDate, departure, destination, descriptionBuying } = req.body;
+
+
+        advert.departureDate = departureDate,
+            advert.advetarivalDate = arivalDate,
+            advert.departure = departure,
+            advert.destination = destination,
             advert.descriptionBuying = descriptionBuying,
-       
-    
-        await advert.save();
+
+
+            await advert.save();
         res.json(advert)
 
 
     },
-    showAdvert: async (req,res)=>{
+    showAdvert: async (req, res) => {
         const { id } = req.params;
-        const advert = await Advertisement.findOne({ _id: id }).populate('createdBy' , "lastName firstName image").populate('parcel');;
-        if(!advert){
+        const advert = await Advertisement.findOne({ _id: id }).populate('createdBy', "lastName firstName image").populate('parcel');;
+        if (!advert) {
             return res.status(404).json("Adverr not found");
         }
-        
+
         res.json(advert)
+    },
+    showFlights: async (req, res, next) => {
+
+        const dest = req.body.dest;
+        const dep = req.body.dep;
+        const date = req.body.date;
+
+
+
+
+        try {
+            const flights = await Advertisement.find({ type: "travel", destination: dest, departureDate: date, departure: dep }).populate('createdBy', "lastName firstName image")
+            if (flights.length > 0)
+                res.status(200).json({ flights: flights });
+            else res.status(404).json("No flights found");
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        }
     }
- }
+
+}

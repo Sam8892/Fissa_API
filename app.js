@@ -10,7 +10,6 @@ var advertisementRouter= require('./routes/advertisements');
 var parcelRouter= require('./routes/parcels');
 var transactionRouter= require('./routes/transactions');
 var app = express();
- 
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://kou:fisaa@cluster0.qczbh.mongodb.net/fisaa?retryWrites=true&w=majority";
 /*
@@ -26,6 +25,7 @@ mongoose.connect('mongodb://localhost:27017/Fissa_DB', { useUnifiedTopology: tru
  mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
  .then(() => console.log("Atlas Connected Successfully"))
  .catch(err => console.log(err));
+
   
 // view engine setup
  
