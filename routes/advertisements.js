@@ -2,6 +2,9 @@ const express = require('express');
 const advertisementController = require('../controllers/advertisement.controller');
 const router = express.Router();
 
+router.route('/top')
+      .get(advertisementController.showTopFlights);
+
 router.route('/upcoming')
       .get(advertisementController.showUpcomingFlights);
 
