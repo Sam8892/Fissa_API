@@ -68,8 +68,8 @@ module.exports = {
     },
     showFlights: async (req, res, next) => {
 
-        const dest = req.body.dest;
-        const dep = req.body.dep;
+        const dest = req.body.destination; 
+        const dep = req.body.departure;
         const date = req.body.date;
 
 
@@ -80,6 +80,26 @@ module.exports = {
             if (flights.length > 0)
                 res.status(200).json({ flights: flights });
             else res.status(404).json("No flights found");
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        }
+    },
+
+    showUpcomingFlights: async (req, res, next) => {
+        try {
+            const flights = await Advertisement.find({
+                departureDate: {
+                    $gte: Date.now()
+                }
+            }).populate('createdBy', "lastName firstName image")
+
+            if (flights.length > 0)
+                res.status(200).json({ flights: flights });
+            else res.status(404).json("No flights found");
+
         } catch (err) {
             if (!err.statusCode) {
                 err.statusCode = 500;

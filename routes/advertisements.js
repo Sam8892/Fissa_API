@@ -2,8 +2,12 @@ const express = require('express');
 const advertisementController = require('../controllers/advertisement.controller');
 const router = express.Router();
 
+router.route('/upcoming')
+      .get(advertisementController.showUpcomingFlights);
+
 router.route('/flights')
       .get(advertisementController.showFlights);
+
 router.route('/')
       .post(advertisementController.create)
       .get(advertisementController.getAll);
