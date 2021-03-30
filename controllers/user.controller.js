@@ -6,11 +6,11 @@ const fs = require('fs');
 module.exports = {
     getAll: async (req,res) => {
         const users = await User.find();
-        users.forEach((el)=>{
+       /* users.forEach((el)=>{
             if(el.image){
                 el.image = "http://localhost:3000/images/"+el.image
             }
-        })
+        })*/
         res.json(users)
     },
 
@@ -73,8 +73,7 @@ module.exports = {
                   id: '',
                 firstName: '',
                  lastName:'', 
-                 email:'',
-                 password:'', 
+                 email:'', 
                  dateOfBirth:'',
                  cin:'',
                  description:'',
@@ -82,7 +81,8 @@ module.exports = {
                  adress:'',
                  zipCode:'',
                  city:'',
-                 country:''   
+                 country:'',
+                 image: '' 
                 } ;
 
                  User.findOne({ 'email': req.body.email }, (err, user) => {
@@ -104,7 +104,7 @@ module.exports = {
                             data.firstName = user.firstName;
                             data.lastName = user.lastName;
                             data.email = user.email;
-                            data.password = user.password;
+                            data.image = user.image;
                             data.dateOfBirth = user.dateOfBirth;
                             data.cin = user.cin;
                             data.description = user.description;
