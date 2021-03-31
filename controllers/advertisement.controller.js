@@ -140,7 +140,7 @@ module.exports = {
                     const dep = separator[1]
                     const count = e.count
 
-                    topFlights.push({ destination: dest, departure: dep, count: count });
+                    topFlights.push({  departure: dep, destination: dest, count: count });
 
                 }
 
@@ -150,7 +150,7 @@ module.exports = {
             if (flights.length > 0)
                 res.status(200).json(topFlights)
 
-            else res.status(404).json("No flights found");
+            else res.status(404).json("No flights found ! ");
 
         } catch (err) {
             if (!err.statusCode) {
