@@ -111,16 +111,36 @@ module.exports = {
     showTopFlights: async (req, res, next) => {
         try {
             const flights = await Advertisement.aggregate([
-                
+
                 { $unwind: "$destination" },
                 { $unwind: "$departure" },
-                { $sortByCount: { $concat: ["$destination"," - ", "$departure"] } }
-                
+                { $sortByCount: { $concat: ["$destination", " - ", "$departure"] } }
+
 
             ])
 
+            var topFlights = [];
+
+
+
+            /** splitting flights */
+            flights.forEach((e) => {
+                if (e._id) {
+                    const separator = e._id.split("-")
+                    const dest = separator[0]
+                    const dep = separator[1]
+                    const count = e.count
+
+                    topFlights.push({ destination: dest, departure: dep, count: count });
+
+                }
+
+            })
+
+
             if (flights.length > 0)
-                res.status(200).json({ flights: flights });
+                res.status(200).json(topFlights)
+
             else res.status(404).json("No flights found");
 
         } catch (err) {
