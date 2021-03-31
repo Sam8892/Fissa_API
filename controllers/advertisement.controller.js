@@ -132,7 +132,7 @@ module.exports = {
 
 
 
-            /** splitting flights */
+            /** splitting flights done but we can try map */
             flights.forEach((e) => {
                 if (e._id) {
                     const separator = e._id.split("-")
