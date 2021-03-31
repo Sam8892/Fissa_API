@@ -30,15 +30,6 @@ module.exports = {
 
     getAll: async (req, res) => {
         const advert = await Advertisement.find().populate('createdBy', "lastName firstName image").populate('parcel');
-       /* advert.forEach((e) => {
-            if (e.departureDate)  {
-               var test = new Date(e.departureDate).toISOString().slice(0 , 10)
-              e.departureDate = test
-                console.log("******" +  e.departureDate) 
-                
-              //  e.departureDate = new Date().toJSON().slice(0,10);
-            }
-        })*/
         res.json(advert)
     },
 
@@ -75,9 +66,10 @@ module.exports = {
 
         res.json(advert)
     },
-    searchFlights: async (req, res, next) => {
+    
+    showFlights: async (req, res, next) => {
 
-        const dest = req.body.destination;
+        const dest = req.body.destination; 
         const dep = req.body.departure;
         const date = req.body.date;
 
@@ -115,49 +107,6 @@ module.exports = {
             }
             next(err);
         }
-    },
-
-    showTopFlights: async (req, res, next) => {
-        try {
-            const flights = await Advertisement.aggregate([
-
-                { $unwind: "$destination" },
-                { $unwind: "$departure" },
-                { $sortByCount: { $concat: ["$destination", " - ", "$departure"] } }
-
-
-            ])
-
-            var topFlights = [];
-
-
-
-            /** splitting flights */
-            flights.forEach((e) => {
-                if (e._id) {
-                    const separator = e._id.split("-")
-                    const dest = separator[0]
-                    const dep = separator[1]
-                    const count = e.count
-
-                    topFlights.push({ destination: dest, departure: dep, count: count });
-
-                }
-
-            })
-
-
-            if (flights.length > 0)
-                res.status(200).json(topFlights)
-
-            else res.status(404).json("No flights found");
-
-        } catch (err) {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        }
     }
 
-}
+} 
