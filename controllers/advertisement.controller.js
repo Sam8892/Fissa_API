@@ -30,6 +30,15 @@ module.exports = {
 
     getAll: async (req, res) => {
         const advert = await Advertisement.find().populate('createdBy', "lastName firstName image").populate('parcel');
+       /* advert.forEach((e) => {
+            if (e.departureDate)  {
+               var test = new Date(e.departureDate).toISOString().slice(0 , 10)
+              e.departureDate = test
+                console.log("******" +  e.departureDate) 
+                
+              //  e.departureDate = new Date().toJSON().slice(0,10);
+            }
+        })*/
         res.json(advert)
     },
 
@@ -66,7 +75,7 @@ module.exports = {
 
         res.json(advert)
     },
-    showFlights: async (req, res, next) => {
+    searchFlights: async (req, res, next) => {
 
         const dest = req.body.destination;
         const dep = req.body.departure;
