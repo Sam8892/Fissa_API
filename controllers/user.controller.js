@@ -99,32 +99,25 @@ module.exports = {
                 });
 
                 await user.save();
-                res.status(200).json({ user })
+                
+                res.status(200).json({
+                    success: true,
+                    data:user
+                });
 
             }
 
             else {
-                res.status(200).json({ user })
+                res.status(200).json({
+                    success: true,
+                    data:user
+                });
             }
 
         }
 
         else {
-            let data = {
-                id: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-                dateOfBirth: '',
-                cin: '',
-                description: '',
-                phoneNumber: '',
-                adress: '',
-                zipCode: '',
-                city: '',
-                country: '',
-                image: '',
-            };
+             
 
             User.findOne({ 'email': req.body.email }, (err, user) => {
 
