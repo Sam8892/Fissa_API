@@ -117,7 +117,7 @@ module.exports = {
         }
 
              
-
+        else {
             User.findOne({ 'email': req.body.email }, (err, user) => {
 
                 if (!user) {
@@ -254,3 +254,4 @@ module.exports = {
         res.json(user)
     }
 }
+
