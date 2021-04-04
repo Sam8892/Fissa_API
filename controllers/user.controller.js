@@ -116,7 +116,6 @@ module.exports = {
 
         }
 
-        else {
              
 
             User.findOne({ 'email': req.body.email }, (err, user) => {

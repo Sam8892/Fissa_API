@@ -9,7 +9,7 @@ router.route('/upcoming')
       .get(advertisementController.showUpcomingFlights);
 
 router.route('/flights')
-      .get(advertisementController.searchFlights);
+      .post(advertisementController.searchFlights);
 
 router.route('/')
       .post(advertisementController.create)
