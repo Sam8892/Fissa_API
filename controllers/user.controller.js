@@ -120,19 +120,19 @@ module.exports = {
         else {
         
             const data = {
-                id = '',
-                firstName='',
-                lastName ='',
-                email ='',
-                dateOfBirth='',
-                image = '',
-                cin = '',
-                description = '',
-                phoneNumber ='',
-                adress = '',
-                zipCode = 0,
-                city ='',
-                country =''
+                id : '',
+                firstName:'',
+                lastName :'',
+                email :'',
+                dateOfBirth:'',
+                image : '',
+                cin : '',
+                description : '',
+                phoneNumber :'',
+                adress : '',
+                zipCode : 0,
+                city :'',
+                country :''
             }
 
             User.findOne({ 'email': req.body.email }, (err, user) => {
