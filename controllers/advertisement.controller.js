@@ -148,7 +148,7 @@ module.exports = {
 
 
             if (flights.length > 0)
-                res.status(200).json(topFlights)
+                res.status(200).json({ flights: topFlights })
 
             else res.status(404).json("No flights found ! ");
 
