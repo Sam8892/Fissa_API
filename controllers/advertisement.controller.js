@@ -39,7 +39,7 @@ module.exports = {
               //  e.departureDate = new Date().toJSON().slice(0,10);
             }
         })*/
-        res.json(advert)
+        res.status(200).json({ ads: advert });
     },
 
     updateAds: async (req, res) => {
@@ -140,7 +140,7 @@ module.exports = {
                     const dep = separator[1]
                     const count = e.count
 
-                    topFlights.push({  departure: dep, destination: dest, count: count });
+                    topFlights.push({ departure: dep, destination: dest, count: count });
 
                 }
 
