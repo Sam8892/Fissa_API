@@ -29,7 +29,7 @@ module.exports = {
     },
 
     getAll: async (req, res) => {
-        const advert = await Advertisement.find().populate('createdBy', "lastName firstName image").populate('parcel');
+        const advert = await Advertisement.find({$or:[{type: "purchase"},{type:"transport"}]}).populate('createdBy', "lastName firstName image").populate('parcel');
        /* advert.forEach((e) => {
             if (e.departureDate)  {
                var test = new Date(e.departureDate).toISOString().slice(0 , 10)

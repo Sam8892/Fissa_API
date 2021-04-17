@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var advertisementRouter= require('./routes/advertisements');
 var parcelRouter= require('./routes/parcels');
 var transactionRouter= require('./routes/transactions');
+var photosRouter= require('./routes/photos')
 var app = express();
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://kou:fisaa@cluster0.qczbh.mongodb.net/fisaa?retryWrites=true&w=majority";
@@ -41,6 +42,7 @@ app.use('/users', usersRouter);
 app.use('/advertisements', advertisementRouter);
 app.use('/parcels', parcelRouter);
 app.use('/transactions', transactionRouter);
+app.use('/teleport',photosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
