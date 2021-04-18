@@ -27,7 +27,11 @@ module.exports = {
         res.json(advert)
         // res.redirect('/users');
     },
-
+    getFlights: async (req, res) => {
+        const advert = await Advertisement.find({type: "travel"}).populate('createdBy', "lastName firstName image");
+        
+        res.status(200).json({ flights: advert });
+    },
     getAll: async (req, res) => {
         const advert = await Advertisement.find({$or:[{type: "purchase"},{type:"transport"}]}).populate('createdBy', "lastName firstName image").populate('parcel');
        /* advert.forEach((e) => {
