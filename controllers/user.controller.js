@@ -62,7 +62,7 @@ module.exports = {
         });
 
         if (req.file) {
-            user.image = req.file.filename;
+            user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
         }
         await user.save();
         res.json(user)
