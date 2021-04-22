@@ -95,9 +95,11 @@ module.exports = {
  
         const depDate = req.body.departureDate;
         const arrDate = req.body.arivalDate;
+        const dep = req.body.departure;
+        const dest = req.body.destination;
          
         try {
-            const flights = await Advertisement.find({ type: "travel", departureDate: depDate, arivalDate: arrDate }).populate('createdBy', "lastName firstName image")
+            const flights = await Advertisement.find({ type: "travel", departureDate: depDate, arivalDate: arrDate,departure:dep,destination:dest }).populate('createdBy', "lastName firstName image")
             if (flights.length > 0)
                 res.status(200).json({ flights: flights });
             else res.status(404).json("No flights found");
