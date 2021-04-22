@@ -4,7 +4,6 @@ const { User } = require('../models/user.model');
 const { Advertisement } = require('../models/advertisement.model');
 module.exports = {
 
-
     create: async (req, res, next) => {
 
 
@@ -34,15 +33,7 @@ module.exports = {
     },
     getAll: async (req, res) => {
         const advert = await Advertisement.find({$or:[{type: "purchase"},{type:"transport"}]}).populate('createdBy', "lastName firstName image").populate('parcel');
-       /* advert.forEach((e) => {
-            if (e.departureDate)  {
-               var test = new Date(e.departureDate).toISOString().slice(0 , 10)
-              e.departureDate = test
-                console.log("******" +  e.departureDate) 
-                
-              //  e.departureDate = new Date().toJSON().slice(0,10);
-            }
-        })*/
+    
         res.status(200).json({ ads: advert });
     },
 
@@ -100,7 +91,23 @@ module.exports = {
             next(err);
         }
     },
-
+    searchFlightsDateFilter: async (req, res, next) => {
+ 
+        const depDate = req.body.departureDate;
+        const arrDate = req.body.arivalDate;
+         
+        try {
+            const flights = await Advertisement.find({ type: "travel", departureDate: depDate, arivalDate: arrDate }).populate('createdBy', "lastName firstName image")
+            if (flights.length > 0)
+                res.status(200).json({ flights: flights });
+            else res.status(404).json("No flights found");
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        }
+    },
     showUpcomingFlights: async (req, res, next) => {
         try {
             const flights = await Advertisement.find({

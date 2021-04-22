@@ -2,8 +2,12 @@ const express = require('express');
 const advertisementController = require('../controllers/advertisement.controller');
 const router = express.Router();
 
+router.route('/search/dates')
+      .post(advertisementController.searchFlightsDateFilter);
+
 router.route('/top')
       .get(advertisementController.showTopFlights);
+
 
 router.route('/upcoming')
       .get(advertisementController.showUpcomingFlights);
@@ -11,6 +15,7 @@ router.route('/upcoming')
 router.route('/flights')
       .post(advertisementController.searchFlights)
       .get(advertisementController.getFlights);
+
 
 router.route('/')
       .post(advertisementController.create)
@@ -21,6 +26,7 @@ router.route('/:id')
       .put(advertisementController.updateAds)
       //.delete(userController.deleteUser)
       .get(advertisementController.showAdvert);
+
 
 
 
