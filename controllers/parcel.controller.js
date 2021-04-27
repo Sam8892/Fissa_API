@@ -5,11 +5,6 @@ const fs = require('fs');
 module.exports = {
     getAll: async (req,res) => {
         const parcels = await Parcel.find();
-        parcels.forEach((el)=>{
-            if(el.photo){
-                el.photo = "http://localhost:3000/images/"+el.photo
-            }
-        })
         res.json(parcels)
     },
 
@@ -28,12 +23,7 @@ module.exports = {
             description,
                 } = req.body;
                console.log(dimension + " _ " + description) 
-               /* const userExist = await User.findOne({ 'email' : email });
-                if(userExist){
-                    return res.status(400).json("Already registred email");
-                }
-                const salt = await bcrypt.genSalt(8);
-                const hashPassword = await bcrypt.hash(password, salt);*/
+              
         
 
         const parcel = new Parcel({
@@ -45,11 +35,10 @@ module.exports = {
         });
 
         if(req.file){
-            parcel.photo = req.file.filename;
+            parcel.photo = "https://fisaa.herokuapp.com/images/"+req.file.filename;
         }
         await parcel.save();
         res.json(parcel)
-       // res.redirect('/users');
     }, 
     updateParcel: async (req, res)=>{
         const { id } = req.params;
@@ -96,9 +85,7 @@ module.exports = {
         if(!parcel){
             return res.status(404).json("Parcel not found");
         }
-        if(parcel.photo){
-            parcel.photo = "http://localhost:3000/images/"+ parcel.photo;
-        }
+        
         res.json(parcel)
     }
 }
