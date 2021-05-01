@@ -31,12 +31,12 @@ const parcelSchema = mongoose.Schema(
         type: String,
         enum: [
             'small',
-			      'meduim',
+			      'medium',
             'large',
             'very large'
        
         ],
-        default: 'meduim',
+        default: 'medium',
          },
         
             photo: {
