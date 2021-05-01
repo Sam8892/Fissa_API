@@ -110,6 +110,24 @@ module.exports = {
             next(err);
         }
     },
+    searchAdvert : async (req ,res ,next) => {
+        const depDate = req.body.departureDate ;
+        const arrDate = req.body.arivalDate;
+        const dep = req.body.departure;
+        const dest = req.body.destination
+        try {
+            const ads = await Advertisement.find({$or:[{type: "purchase"},{type:"transport"}], departureDate: depDate, arivalDate: arrDate,departure:dep,destination:dest }).populate('createdBy', "lastName firstName image").populate('parcel')
+            if (ads.length > 0)
+                res.status(200).json({ ads: ads });
+            else res.status(404).json("No Ads found");
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        }
+    },
+
     showUpcomingFlights: async (req, res, next) => {
         try {
             const flights = await Advertisement.find({
