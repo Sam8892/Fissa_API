@@ -19,8 +19,9 @@ router.route('/flights')
 
 router.route('/')
       .post(advertisementController.create)
-      .get(advertisementController.getAll);
-
+      .get(advertisementController.getAll)
+router.route('/search/ads')      
+      .post(advertisementController.searchAdvert);
 
 router.route('/:id')
       .put(advertisementController.updateAds)
