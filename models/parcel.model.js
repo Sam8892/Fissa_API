@@ -12,7 +12,7 @@ const parcelSchema = mongoose.Schema(
       
     weight: {
       
-        type: Number, 
+        type: String, 
       },
       parcelType: {
         type: String,
