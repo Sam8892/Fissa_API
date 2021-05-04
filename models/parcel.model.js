@@ -21,7 +21,7 @@ const parcelSchema = mongoose.Schema(
 			      'electronic',
             'books',
             'documents',
-            'keys',
+            'food',
             'other...'
             
         ],
