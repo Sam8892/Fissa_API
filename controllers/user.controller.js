@@ -39,34 +39,39 @@ module.exports = {
         } = req.body;
 
         const userExist = await User.findOne({ 'email': email });
+
         if (userExist) {
-            return res.status(400).json("Already registred email");
+             res.status(400).json("Already registred email");
         }
-        const salt = await bcrypt.genSalt(8);
-        const hashPassword = await bcrypt.hash(password, salt);
-
-
-        const user = new User({
-            firstName,
-            lastName,
-            email,
-            password: hashPassword,
-            dateOfBirth,
-            cin,
-            description,
-            phoneNumber,
-            adress,
-            zipCode,
-            city,
-            country
-        });
-
-        if (req.file) {
-            user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
+        else
+        {
+            const salt = await bcrypt.genSalt(8);
+            const hashPassword = await bcrypt.hash(password, salt);
+    
+    
+            const user = new User({
+                firstName,
+                lastName,
+                email,
+                password: hashPassword,
+                dateOfBirth,
+                cin,
+                description,
+                phoneNumber,
+                adress,
+                zipCode,
+                city,
+                country
+            });
+    
+            if (req.file) {
+                user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
+            }
+            await user.save();
+            res.json(user)
         }
-        await user.save();
-        res.json(user)
-        // res.redirect('/users');
+       
+        
     },
 
 
