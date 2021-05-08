@@ -125,7 +125,7 @@ module.exports = {
         else {
         
             const data = {
-                id : '',
+                _id : '',
                 firstName:'',
                 lastName :'',
                 email :'',
@@ -172,7 +172,7 @@ module.exports = {
                         //    return res.status(200).json(data);
                         res.status(200).json({
                             success: true,
-                            data
+                            data:user
                         });
 
                         // console.log(user)
