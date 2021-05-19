@@ -13,7 +13,7 @@ module.exports = {
             arivalDate: req.body.arivalDate,
             departure: req.body.departure,
             destination: req.body.destination,
-            descriptionBuying: req.body.descriptionBuying,
+           
             createdBy: req.body.createdBy,
             parcel: req.body.parcel
 
@@ -46,14 +46,13 @@ module.exports = {
             return res.status(404).json(" Advertisement Not Found")
         }
 
-        const { departureDate, arivalDate, departure, destination, descriptionBuying } = req.body;
+        const { departureDate, arivalDate, departure, destination  } = req.body;
 
 
         advert.departureDate = departureDate,
             advert.advetarivalDate = arivalDate,
             advert.departure = departure,
-            advert.destination = destination,
-            advert.descriptionBuying = descriptionBuying,
+            advert.destination = destination, 
 
 
             await advert.save();
