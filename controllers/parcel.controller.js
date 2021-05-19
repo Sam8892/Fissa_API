@@ -21,8 +21,7 @@ module.exports = {
             parcelType,
             bonus,
             description,
-                } = req.body;
-               console.log(dimension + " _ " + description) 
+            photo} = req.body;
               
         
 
@@ -32,11 +31,12 @@ module.exports = {
             parcelType,
             bonus,
             description,
+            photo
         });
-
+        /*
         if(req.file){
             parcel.photo = "https://fisaa.herokuapp.com/images/"+req.file.filename;
-        }
+        }*/
         await parcel.save();
         res.json(parcel)
     }, 
