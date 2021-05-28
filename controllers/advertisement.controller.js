@@ -1,5 +1,5 @@
 
-
+const fetch = require("node-fetch");
 const { User } = require('../models/user.model');
 const { Advertisement } = require('../models/advertisement.model');
 module.exports = {
@@ -13,18 +13,53 @@ module.exports = {
             arivalDate: req.body.arivalDate,
             departure: req.body.departure,
             destination: req.body.destination,
-           
             createdBy: req.body.createdBy,
-            parcel: req.body.parcel
+            parcel: req.body.parcel,
+            place:""
 
         });
-        // console.log(req.body.parcel);
-        await advert.save();
+
+        /* Saving pictures of places */
+        var place = advert.destination;
+        var photo = {
+          id: "0",
+          owner: "0",
+          secret: "0",
+          server: "0",
+          farm: 0
+        }
+        var generateUrl = ""
+        const imagesUrl = "http://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8055c22c0471b9cf5cb95e82e5f4511&privacy_filter=public&media=photos&page=1&format=json&nojsoncallback=1&tags=city%2Ctravel%2Cmonument%2Ctourist&text=" + place
+        fetch(imagesUrl).then(async response => {
+          try {
+            const data = await response.json()
+    
+            if (data.photos != null) {
+              photo = data.photos.photo[0]
+              generateUrl = "http://farm" + photo.farm.toString() + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
+              advert.place = generateUrl
+              await advert.save();
+              res.json(advert)
+              console.log(generateUrl)
+             }
+             else{
+             await advert.save();
+             res.json(advert)
+             }
+    
+    
+          } catch (error) {
+            console.log('Error in photos api happened !')
+            console.error(error)
+          }
+        })
+        /* Saving pictures of places */
+        
         const user = await User.findById({ _id: advert.createdBy })
         user.publishedAdverts.push(advert);
         await user.save();
-        res.json(advert)
-        // res.redirect('/users');
+        
+         
     },
     getFlights: async (req, res) => {
         const advert = await Advertisement.find({type: "travel"}).populate('createdBy', "lastName firstName image");
@@ -153,24 +188,24 @@ module.exports = {
 
                 { $unwind: "$destination" },
                 { $unwind: "$departure" },
-                { $sortByCount: { $concat: ["$destination", " - ", "$departure"] } }
+                { $sortByCount: { $concat: ["$destination", "-", "$departure","-","$place"] } },
+                 
 
 
             ])
-
             var topFlights = [];
 
 
 
-            /** splitting flights done but we can try map */
             flights.forEach((e) => {
                 if (e._id) {
                     const separator = e._id.split("-")
-                    const dest = separator[0]
-                    const dep = separator[1]
+                    const destination = separator[0]
+                    const departure = separator[1]
+                    const place = separator[2]
                     const count = e.count
 
-                    topFlights.push({ departure: dep, destination: dest, count: count });
+                    topFlights.push({ departure: departure, destination: destination, count: count,place:place });
 
                 }
 

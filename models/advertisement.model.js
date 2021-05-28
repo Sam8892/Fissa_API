@@ -37,9 +37,11 @@ const advertisementSchema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: 'parcel',
 
-    }
+    },
+    place:{
+      type:String
+    },
   },
-
   {
     timestamps: true
   }

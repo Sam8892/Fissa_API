@@ -42,7 +42,7 @@ app.use('/users', usersRouter);
 app.use('/advertisements', advertisementRouter);
 app.use('/parcels', parcelRouter);
 app.use('/transactions', transactionRouter);
-app.use('/teleport',photosRouter);
+app.use('/flickr',photosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
