@@ -29,7 +29,7 @@ module.exports = {
           farm: 0
         }
         var generateUrl = ""
-        const imagesUrl = "http://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8055c22c0471b9cf5cb95e82e5f4511&privacy_filter=public&media=photos&page=1&format=json&safe_search=1&nojsoncallback=1&tags=city%2Ctravel%2Cmonument&text=" + place
+        const imagesUrl = "http://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=b8055c22c0471b9cf5cb95e82e5f4511&privacy_filter=public&media=photos&page=1&format=json&safe_search=1&nojsoncallback=1&tags=travel%2Cmonument&text=" + place
         fetch(imagesUrl).then(async response => {
           try {
             const data = await response.json()
