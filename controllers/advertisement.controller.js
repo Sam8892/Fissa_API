@@ -164,11 +164,7 @@ module.exports = {
 
     showUpcomingFlights: async (req, res, next) => {
         try {
-            const flights = await Advertisement.find({
-                departureDate: {
-                    $gte: Date.now()
-                }
-            }).populate('createdBy', "lastName firstName image")
+            const flights = await Advertisement.find({departureDate: { $gte: Date.now() },type:"travel" }).populate('createdBy', "lastName firstName image")
 
             if (flights.length > 0)
                 res.status(200).json({ flights: flights });
