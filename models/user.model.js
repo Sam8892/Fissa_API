@@ -58,6 +58,10 @@ const userSchema = mongoose.Schema({
     myTransactions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'advertisement'
+     }],
+     comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'comment'
      }]
     },
 

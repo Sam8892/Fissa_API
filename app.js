@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var advertisementRouter= require('./routes/advertisements');
 var parcelRouter= require('./routes/parcels');
 var transactionRouter= require('./routes/transactions');
+var CommentRouter= require('./routes/comments');
 var photosRouter= require('./routes/photos')
 var app = express();
 const mongoose = require('mongoose');
@@ -42,6 +43,7 @@ app.use('/users', usersRouter);
 app.use('/advertisements', advertisementRouter);
 app.use('/parcels', parcelRouter);
 app.use('/transactions', transactionRouter);
+app.use('/comments',CommentRouter)
 app.use('/flickr',photosRouter);
 
 // catch 404 and forward to error handler

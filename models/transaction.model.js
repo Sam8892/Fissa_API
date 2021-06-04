@@ -12,13 +12,14 @@ const transactionSchema = mongoose.Schema(
         ],
         default: 'under review',
     },
-     
+       // from User ID 
              sender: 
              {
                 type: mongoose.Types.ObjectId,
                 ref: 'user',
                require :true
               },
+              // to User Id
               traveler: 
              {
                 type: mongoose.Types.ObjectId,
