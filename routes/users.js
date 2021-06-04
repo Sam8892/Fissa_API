@@ -31,6 +31,11 @@ router.route('/:id')
     .patch(upload.single('avatar'), userController.updateUser)
     .delete(userController.deleteUser)
     .get(userController.showUSer);
+router.route('/comments/:id')   
+    .get(userController.showMyComments)
+router.route('/flights/:id')
+    .get(userController.showMyFlights);
+
 
 
 

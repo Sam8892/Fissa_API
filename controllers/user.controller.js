@@ -274,6 +274,36 @@ module.exports = {
             user.image = "http://localhost:3000/images/" + user.image;
         }
         res.json(user)
+    },
+    showMyComments: async (req, res) => {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id }).populate('comments');
+        if (!user) {
+            return res.status(404).json("No Comments Find");
+        }
+       /* if (user.image) {
+            user.image = "http://localhost:3000/images/" + user.image;
+        }*/
+        res.json({
+            _id : user.id ,
+            firstName : user.firstName,
+            comments: user.comments
+        })
+    },
+    showMyFlights: async (req, res) => {
+        const { id } = req.params;
+        const user = await User.findOne({ _id: id }).populate({path :'publishedAdverts' , match: { type : "travel"}});
+        if (!user) {
+            return res.status(404).json("you don't have any flights");
+        } 
+            res.json({
+                _id : user.id ,
+                firstName : user.firstName,
+                lastName : user.lastName,
+                publishedAdverts: user.publishedAdverts
+            })
+       
+        
     }
 }
 

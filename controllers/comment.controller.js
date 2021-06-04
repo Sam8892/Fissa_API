@@ -13,8 +13,8 @@ module.exports = {
         });
        
         await comment.save();
-        //const senderUser = await User.findById({_id: comment.sender })
-        const receiverUser = await User.findById({_id: comment.receiver })
+      //  const senderUser = await User.findById({_id: comment.sender })
+        const receiverUser = await  User.findById({_id: comment.receiver })
        // senderUser.comments.push(comment);
         receiverUser.comments.push(comment);
        // await senderUser.save();
@@ -22,5 +22,9 @@ module.exports = {
         res.json(comment)
        // res.redirect('/users');
     },
+    getCommentsByUserId : async (req ,res , next)=> {
+
+
+    }
 
 }
