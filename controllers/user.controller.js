@@ -1,4 +1,5 @@
 const { User } = require('../models/user.model');
+const { Comment } = require('../models/comment.model');
 
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
@@ -41,14 +42,13 @@ module.exports = {
         const userExist = await User.findOne({ 'email': email });
 
         if (userExist) {
-             res.status(400).json("Already registred email");
+            res.status(400).json("Already registred email");
         }
-        else
-        {
+        else {
             const salt = await bcrypt.genSalt(8);
             const hashPassword = await bcrypt.hash(password, salt);
-    
-    
+
+
             const user = new User({
                 firstName,
                 lastName,
@@ -63,15 +63,15 @@ module.exports = {
                 city,
                 country
             });
-    
+
             if (req.file) {
                 user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
             }
             await user.save();
             res.json(user)
         }
-       
-        
+
+
     },
 
 
@@ -80,7 +80,7 @@ module.exports = {
         const socialFlag = req.body.social
 
 
-        if (socialFlag!=null && socialFlag==true) {
+        if (socialFlag != null && socialFlag == true) {
             let {
                 firstName,
                 lastName,
@@ -104,10 +104,10 @@ module.exports = {
                 });
 
                 await user.save();
-                
+
                 res.status(200).json({
                     success: true,
-                    data:user
+                    data: user
                 });
 
             }
@@ -115,29 +115,29 @@ module.exports = {
             else {
                 res.status(200).json({
                     success: true,
-                    data:user
+                    data: user
                 });
             }
 
         }
 
-             
+
         else {
-        
+
             const data = {
-                _id : '',
-                firstName:'',
-                lastName :'',
-                email :'',
-                dateOfBirth:'',
-                image : '',
-                cin : '',
-                description : '',
-                phoneNumber :'',
-                adress : '',
-                zipCode : 0,
-                city :'',
-                country :''
+                _id: '',
+                firstName: '',
+                lastName: '',
+                email: '',
+                dateOfBirth: '',
+                image: '',
+                cin: '',
+                description: '',
+                phoneNumber: '',
+                adress: '',
+                zipCode: 0,
+                city: '',
+                country: ''
             }
 
             User.findOne({ 'email': req.body.email }, (err, user) => {
@@ -172,7 +172,7 @@ module.exports = {
                         //    return res.status(200).json(data);
                         res.status(200).json({
                             success: true,
-                            data:user
+                            data: user
                         });
 
                         // console.log(user)
@@ -277,33 +277,39 @@ module.exports = {
     },
     showMyComments: async (req, res) => {
         const { id } = req.params;
-        const user = await User.findOne({ _id: id }).populate('comments');
+
+        const user = await User.findOne({ _id: id }).populate({
+            path: 'comments',
+            model: Comment,
+            populate: {
+                path: 'sender', select :'image' ,
+                model: User
+            }
+        })
+
+
         if (!user) {
             return res.status(404).json("No Comments Find");
         }
-       /* if (user.image) {
-            user.image = "http://localhost:3000/images/" + user.image;
-        }*/
+
         res.json({
-            _id : user.id ,
-            firstName : user.firstName,
-            comments: user.comments
+            Comments : user.comments
         })
     },
     showMyFlights: async (req, res) => {
         const { id } = req.params;
-        const user = await User.findOne({ _id: id }).populate({path :'publishedAdverts' , match: { type : "travel"}});
+        const user = await User.findOne({ _id: id }).populate({ path: 'publishedAdverts', match: { type: "travel" } });
         if (!user) {
             return res.status(404).json("you don't have any flights");
-        } 
-            res.json({
-                _id : user.id ,
-                firstName : user.firstName,
-                lastName : user.lastName,
-                publishedAdverts: user.publishedAdverts
-            })
-       
-        
+        }
+        res.json({
+            _id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            publishedAdverts: user.publishedAdverts
+        })
+
+
     }
 }
 
