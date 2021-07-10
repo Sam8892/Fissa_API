@@ -9,11 +9,6 @@ const generator = require('generate-password');
 module.exports = {
     getAll: async (req, res) => {
         const users = await User.find();
-        /* users.forEach((el)=>{
-             if(el.image){
-                 el.image = "http://localhost:3000/images/"+el.image
-             }
-         })*/
         res.json(users)
     },
 
@@ -271,7 +266,7 @@ module.exports = {
             return res.status(404).json("User not found");
         }
         if (user.image) {
-            user.image = "http://localhost:3000/images/" + user.image;
+            user.image =  user.image;
         }
         res.json(user)
     },
