@@ -97,9 +97,9 @@ module.exports = {
     },
     showAdvert: async (req, res) => {
         const { id } = req.params;
-        const advert = await Advertisement.findOne({ _id: id }).populate('createdBy', "lastName firstName image").populate('parcel');;
+        const advert = await Advertisement.findOne({ _id: id }).populate('createdBy', "lastName firstName image").populate('parcel');
         if (!advert) {
-            return res.status(404).json("Adverr not found");
+            return res.status(404).json("Advertisement not found");
         }
 
         res.json(advert)
@@ -224,7 +224,7 @@ module.exports = {
         const { id } = req.params;
          
         try {
-            const ads = await Advertisement.find({ $or:[{type: "purchase"},{type:"transport"}], createdBy: id  })
+            const ads = await Advertisement.find({ $or:[{type: "purchase"},{type:"transport"}], createdBy: id  }).populate("createdBy")
             if (ads.length > 0)
                 res.status(200).json({ ads: ads });
             else res.status(404).json("No Ads found");
