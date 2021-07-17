@@ -224,7 +224,7 @@ module.exports = {
         const { id } = req.params;
          
         try {
-            const ads = await Advertisement.find({ $or:[{type: "purchase"},{type:"transport"}], createdBy: id  }).populate("createdBy")
+            const ads = await Advertisement.find({ $or:[{type: "purchase"},{type:"transport"}], createdBy: id  }).populate('createdBy', "lastName firstName image")
             if (ads.length > 0)
                 res.status(200).json({ ads: ads });
             else res.status(404).json("No Ads found");
