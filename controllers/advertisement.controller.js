@@ -219,6 +219,21 @@ module.exports = {
             }
             next(err);
         }
+    },
+    showMyAds: async (req, res,next) => {
+        const { id } = req.params;
+         
+        try {
+            const ads = await Advertisement.find({ $or:[{type: "purchase"},{type:"transport"}], createdBy: id  })
+            if (ads.length > 0)
+                res.status(200).json({ ads: ads });
+            else res.status(404).json("No Ads found");
+        } catch (err) {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        }
     }
 
 }

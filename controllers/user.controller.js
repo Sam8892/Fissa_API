@@ -304,7 +304,6 @@ module.exports = {
             publishedAdverts: user.publishedAdverts
         })
 
-
     }
 }
 

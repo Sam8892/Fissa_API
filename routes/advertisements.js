@@ -28,6 +28,9 @@ router.route('/:id')
       //.delete(userController.deleteUser)
       .get(advertisementController.showAdvert);
 
+router.route('/publishedAdverts/:id')
+    .get(advertisementController.showMyAds);
+
 
 
 

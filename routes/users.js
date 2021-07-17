@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
     }
 })
 
+
 const upload = multer({ storage });
 router.route('/login')
     .post(userController.login)
@@ -35,8 +36,5 @@ router.route('/comments/:id')
     .get(userController.showMyComments)
 router.route('/flights/:id')
     .get(userController.showMyFlights);
-
-
-
 
 module.exports = router;
