@@ -53,7 +53,8 @@ module.exports = {
             weight,            
             bonus,
             parcelType,
-            description,       
+            description,
+            photo       
         } = req.body;
 
 
@@ -62,9 +63,9 @@ module.exports = {
         parcel.bonus= bonus;
         parcel.parcelType= parcelType;
         parcel.description = description ;
-       
-
-        if(req.file){
+        parcel.photo = photo;
+    
+       /* if(req.file){
             if(parcel.photo){
                 fs.unlink("./public/images/"+parcel.photo, (err)=>{
                     if(err){
@@ -73,7 +74,7 @@ module.exports = {
                 })
             }
             parcel.photo = req.file.filename;
-        }
+        }*/
 
         await parcel.save();
         res.json(parcel)
