@@ -6,6 +6,7 @@ const fs = require('fs');
 const generator = require('generate-password');
 
 
+
 module.exports = {
     getAll: async (req, res) => {
         const users = await User.find();
@@ -43,6 +44,14 @@ module.exports = {
             const salt = await bcrypt.genSalt(8);
             const hashPassword = await bcrypt.hash(password, salt);
 
+            /* checking badge */
+
+            var badge = false;
+
+            if (!cin || !phoneNumber) { badge = false }
+            else { badge = true }
+
+            /* saving user */
 
             const user = new User({
                 firstName,
@@ -58,6 +67,7 @@ module.exports = {
                 city,
                 country
             });
+            user.badge = badge
 
             if (req.file) {
                 user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
@@ -266,7 +276,7 @@ module.exports = {
             return res.status(404).json("User not found");
         }
         if (user.image) {
-            user.image =  user.image;
+            user.image = user.image;
         }
         res.json(user)
     },
@@ -277,7 +287,7 @@ module.exports = {
             path: 'comments',
             model: Comment,
             populate: {
-                path: 'sender', select :'image' ,
+                path: 'sender', select: 'image',
                 model: User
             }
         })
@@ -288,7 +298,7 @@ module.exports = {
         }
 
         res.json({
-            Comments : user.comments
+            Comments: user.comments
         })
     },
     showMyFlights: async (req, res) => {
