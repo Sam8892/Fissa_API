@@ -5,6 +5,7 @@ const fs = require('fs');
 const generator = require('generate-password');
 /* hello */
 
+
 module.exports = {
     getAll: async (req, res) => {
         const users = await User.find();
@@ -42,6 +43,18 @@ module.exports = {
             const salt = await bcrypt.genSalt(8);
             const hashPassword = await bcrypt.hash(password, salt);
 
+<<<<<<< HEAD
+=======
+            /* checking badge */
+
+            var badge = false;
+
+            if (!cin || !phoneNumber) { badge = false }
+            else { badge = true }
+
+            /* saving user */
+
+>>>>>>> a4859c627f39b37988561db6365e225ddb7724dc
             const user = new User({
                 firstName,
                 lastName,
@@ -56,6 +69,7 @@ module.exports = {
                 city,
                 country
             });
+            user.badge = badge
 
             if (req.file) {
                 user.image = "https://fisaa.herokuapp.com/images/" + req.file.filename;
@@ -200,7 +214,8 @@ module.exports = {
             adress,
             zipCode,
             city,
-            country
+            country,
+            image
 
 
         } = req.body;
@@ -221,9 +236,10 @@ module.exports = {
         user.adress = adress;
         user.zipCode = zipCode;
         user.city = city;
-        user.country = country
+        user.country = country ;
+        user.image = image;
 
-        if (req.file) {
+      /*  if (req.file) {
             if (user.image) {
                 fs.unlink("./public/images/" + user.image, (err) => {
                     if (err) {
@@ -232,7 +248,7 @@ module.exports = {
                 })
             }
             user.image = req.file.filename;
-        }
+        }*/
 
         await user.save();
         res.json(user)
@@ -264,7 +280,7 @@ module.exports = {
             return res.status(404).json("User not found");
         }
         if (user.image) {
-            user.image =  user.image;
+            user.image = user.image;
         }
         res.json(user)
     },
@@ -275,7 +291,7 @@ module.exports = {
             path: 'comments',
             model: Comment,
             populate: {
-                path: 'sender', select :'image' ,
+                path: 'sender', select: 'image',
                 model: User
             }
         })
@@ -286,7 +302,7 @@ module.exports = {
         }
 
         res.json({
-            Comments : user.comments
+            Comments: user.comments
         })
     },
     showMyFlights: async (req, res) => {
