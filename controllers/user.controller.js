@@ -1,10 +1,9 @@
 const { User } = require('../models/user.model');
 const { Comment } = require('../models/comment.model');
-
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const generator = require('generate-password');
-
+/* hello */
 
 module.exports = {
     getAll: async (req, res) => {
@@ -42,7 +41,6 @@ module.exports = {
         else {
             const salt = await bcrypt.genSalt(8);
             const hashPassword = await bcrypt.hash(password, salt);
-
 
             const user = new User({
                 firstName,
