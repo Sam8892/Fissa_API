@@ -212,7 +212,8 @@ module.exports = {
             adress,
             zipCode,
             city,
-            country
+            country,
+            image
 
 
         } = req.body;
@@ -233,9 +234,10 @@ module.exports = {
         user.adress = adress;
         user.zipCode = zipCode;
         user.city = city;
-        user.country = country
+        user.country = country ;
+        user.image = image;
 
-        if (req.file) {
+      /*  if (req.file) {
             if (user.image) {
                 fs.unlink("./public/images/" + user.image, (err) => {
                     if (err) {
@@ -244,7 +246,7 @@ module.exports = {
                 })
             }
             user.image = req.file.filename;
-        }
+        }*/
 
         await user.save();
         res.json(user)
