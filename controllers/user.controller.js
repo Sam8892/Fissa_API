@@ -43,8 +43,6 @@ module.exports = {
             const salt = await bcrypt.genSalt(8);
             const hashPassword = await bcrypt.hash(password, salt);
 
-<<<<<<< HEAD
-=======
             /* checking badge */
 
             var badge = false;
@@ -54,7 +52,6 @@ module.exports = {
 
             /* saving user */
 
->>>>>>> a4859c627f39b37988561db6365e225ddb7724dc
             const user = new User({
                 firstName,
                 lastName,
@@ -192,6 +189,7 @@ module.exports = {
 
 
     },
+    // Add image for user
     updateUser: async (req, res) => {
 
 
