@@ -21,10 +21,8 @@ module.exports = {
         await receiverUser.save();
         res.json(comment)
        // res.redirect('/users');
-    },
-    getCommentsByUserId : async (req ,res , next)=> {
-
-
     }
+    
+  
 
 }

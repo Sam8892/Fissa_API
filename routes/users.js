@@ -29,7 +29,7 @@ router.route('/')
 
 
 router.route('/:id')
-    .patch(upload.single('avatar'), userController.updateUser)
+    .patch( userController.updateUser)
     .delete(userController.deleteUser)
     .get(userController.showUSer);
 router.route('/comments/:id')   
