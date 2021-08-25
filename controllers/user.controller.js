@@ -80,7 +80,7 @@ module.exports = {
 
 
     login: async (req, res) => {
-        //addedd social
+
         //add social
         const socialFlag = req.body.social
 
